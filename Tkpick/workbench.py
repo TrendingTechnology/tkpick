@@ -9,7 +9,7 @@ from gi.repository import Gdk
 from pynput import mouse, keyboard
 
 
-__version__ = "1.2"
+__version__ = "1.3"
 __author__ = "Adil Gürbüz"
 __contact__ = "adlgrbz@tutamail.com"
 __source__ = "https://github.com/adlgrbz/Tkpick"
