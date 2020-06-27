@@ -36,10 +36,10 @@ setup(
     python_requires=">=3.5",
     install_requires=["pynput", "PyGObject"],
     keywords=["tkinter", "pick", "cursor", "pixel", "color"],
-    package_data={"tkpickls": ["assets/*.*"]},
+    package_data={"Tkpick": ["assets/*.*"]},
     data_files=[
         ("share/applications", ["tkpick.desktop"]),
-        ("share/icons", ["tkpick/assets/tkpick.png"]),
+        ("share/icons", ["Tkpick/assets/tkpick.png"]),
     ],
     entry_points={"gui_scripts": ["tkpick = tkpick:launch"]},
 )
