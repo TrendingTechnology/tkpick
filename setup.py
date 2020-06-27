@@ -13,11 +13,6 @@ if sys.version_info < (3, 5):
 with open(path.join(setupdir, "README.md"), encoding="ASCII") as f:
     long_description = f.read()
 
-requirements = []
-for line in open(path.join(setupdir, "requirements.txt"), encoding="ASCII"):
-    if line.strip() and not line.startswith("#"):
-        requirements.append(line)
-
 
 setup(
     name="Tkpick",
@@ -39,7 +34,7 @@ setup(
     ],
     platforms=["Linux"],
     python_requires=">=3.5",
-    install_requires=requirements,
+    install_requires=["pynput", "PyGObject"],
     keywords=["tkinter", "pick", "cursor", "pixel", "color"],
     package_data={"tkpickls": ["assets/*.*"]},
     data_files=[
