@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Tkpick
+Exec=/usr/local/bin/tkpick %F
+Icon=tkpick
+Terminal=false
+Categories=Graphics
+MimeType=text/x-python;
