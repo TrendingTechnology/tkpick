@@ -8,7 +8,8 @@ from threading import Thread
 from gi.repository import Gdk
 from pynput import mouse, keyboard
 
-__version__ = "1.0"
+
+__version__ = "1.2"
 __author__ = "Adil Gürbüz"
 __contact__ = "adlgrbz@tutamail.com"
 __source__ = "https://github.com/adlgrbz/Tkpick"
@@ -20,7 +21,9 @@ class Tool(tk.Tk):
     def __init__(self):
         super().__init__()
         self.overrideredirect(True)
-        # self.icon = tk.PhotoImage(file=f"{this_dir}/assets/tkpick.gif")
+        self.icon = tk.PhotoImage(
+            file=f"{this_dir}/assets/tkpick.gif"
+        ).subsample(4, 4)
 
         self.ww, self.wh = 60, 20
         self.wx, self.wy = 10, 20
@@ -34,11 +37,11 @@ class Tool(tk.Tk):
 
     def on_move(self, x, y):
         if x + self.wx + self.ww > self.sw:
-            self.geometry(f"{self.ww}x{self.wh}+" f"{x-self.ww}+{y+self.wy}")
+            self.geometry(f"{self.ww}x{self.wh}+{x-self.ww}+{y+self.wy}")
         elif y + self.wy + self.wh > self.sh:
-            self.geometry(f"{self.ww}x{self.wh}+" f"{x+self.wx}+{y-self.wy}")
+            self.geometry(f"{self.ww}x{self.wh}+{x+self.wx}+{y-self.wy}")
         else:
-            self.geometry(f"{self.ww}x{self.wh}+" f"{x+self.wx}+{y+self.wy}")
+            self.geometry(f"{self.ww}x{self.wh}+{x+self.wx}+{y+self.wy}")
 
         self.color = self.pixel_at(x, y)
         self.label.config(text=self.color, bg=self.color)
@@ -85,11 +88,11 @@ class Tool(tk.Tk):
 
         a.title("About")
         a.resizable(0, 0)
-        # a.wm_iconphoto(a._w, self.icon)
+        a.wm_iconphoto(a._w, self.icon)
 
-        tk.Label(a, text=f"Tkpick {__version__}", compound=tk.LEFT,).pack(
-            padx=5, pady=5
-        )
+        tk.Label(
+            a, text=f" Tkpick {__version__}", compound=tk.LEFT, image=self.icon
+        ).pack(padx=5, pady=5)
 
         content = (
             f"Author: {__author__}\n"
@@ -104,10 +107,3 @@ class Tool(tk.Tk):
 
     def quit(self):
         self.destroy()
-
-
-def test():
-    root = Tool()
-    Thread(target=root.listener_mouse).start()
-    Thread(target=root.listener_keyboard).start()
-    root.mainloop()

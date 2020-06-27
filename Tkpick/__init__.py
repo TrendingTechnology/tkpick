@@ -1,5 +1,5 @@
-from threading import Thread
 from .workbench import Tool
+from threading import Thread
 
 
 def launch():
