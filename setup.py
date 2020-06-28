@@ -20,6 +20,7 @@ setup(
     packages=["Tkpick"],
     description="Get color of pixels with cursor",
     long_description=long_description,
+    long_description_content_type="text/markdown",
     url=workbench.__source__,
     author=workbench.__author__,
     author_email=workbench.__contact__,
