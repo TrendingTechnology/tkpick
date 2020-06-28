@@ -1,4 +1,7 @@
-from workbench import Tool
+try:
+    from .workbench import Tool
+except ImportError:
+    from workbench import Tool
 from threading import Thread
 
 
