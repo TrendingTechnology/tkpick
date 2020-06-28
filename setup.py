@@ -18,7 +18,7 @@ setup(
     name="Tkpick",
     version=workbench.__version__,
     packages=["Tkpick"],
-    description="Get the colors of the pixels on the screen with the cursor",
+    description="Get color of pixels with cursor",
     long_description=long_description,
     url=workbench.__source__,
     author=workbench.__author__,

@@ -91,7 +91,7 @@ class Tool(tk.Tk):
         a.wm_iconphoto(a._w, self.icon)
 
         tk.Label(
-            a, text=f" Tkpick {__version__}", compound=tk.LEFT, image=self.icon
+            a, text=f"Tkpick {__version__}", compound=tk.LEFT, image=self.icon
         ).pack(padx=5, pady=5)
 
         content = (
