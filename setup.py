@@ -41,5 +41,5 @@ setup(
         ("share/applications", ["tkpick.desktop"]),
         ("share/icons", ["Tkpick/assets/tkpick.png"]),
     ],
-    entry_points={"gui_scripts": ["tkpick = tkpick:launch"]},
+    entry_points={"gui_scripts": ["tkpick = Tkpick:launch"]},
 )
