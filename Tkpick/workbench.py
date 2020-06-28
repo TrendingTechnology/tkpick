@@ -88,12 +88,19 @@ class Tool(tk.Tk):
             return "#{:02x}{:02x}{:02x}".format(r, g, b)
     elif os_name == "nt":
         def pixel_at(self, x,y):
-            try:
-                return "#{:02x}{:02x}{:02x}".format(*int.to_bytes(windll.gdi32.GetPixel(dc,x,y), 3, "little"))
-            except OverflowError:
-                print(int.to_bytes(windll.gdi32.GetPixel(dc,x,y), 3, "little"))
-                raise
+            r = windll.gdi32.GetPixel(dc,x,y) # this function returns -1 when mouse is out of window
+            if r == -1:
+                return "#ffffff"
+            
+            r, g, b = int.to_bytes(r, 3, "little")
+            if (r > 127) and (g > 127) and (b > 127):
+                self.label.config(fg="#000000")
+            else:
+                self.label.config(fg="#FFFFFF")
 
+            return "#{:02x}{:02x}{:02x}".format(r, g, b)
+
+            
     def copy(self):
         self.clipboard_clear()
         self.clipboard_append(self.color)
