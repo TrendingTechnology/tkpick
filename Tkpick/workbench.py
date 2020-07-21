@@ -1,12 +1,19 @@
-import gi
-
-gi.require_version("Gdk", "3.0")
-
-from os import path
+from os import path, name as os_name
 import tkinter as tk
 from threading import Thread
-from gi.repository import Gdk
 from pynput import mouse, keyboard
+
+if os_name == "posix":
+    import gi
+
+    gi.require_version("Gdk", "3.0")
+    from gi.repository import Gdk
+elif os_name == "nt":
+    from ctypes import windll
+    dc= windll.user32.GetDC(0)
+
+else:
+    raise OSError("Unsported OS: {}".format(os_name))
 
 
 __version__ = "1.7"
@@ -63,22 +70,37 @@ class Tool(tk.Tk):
         ) as h:
             h.join()
 
-    def pixel_at(self, x, y):
-        # Source:
-        # https://stackoverflow.com/a/27406714/12418109
+    if os_name == "posix":
+        def pixel_at(self, x, y):
+            # Source:
+            # https://stackoverflow.com/a/27406714/12418109
 
-        w = Gdk.get_default_root_window()
-        pb = Gdk.pixbuf_get_from_window(w, x, y, 1, 1)
-        r, g, b = pb.get_pixels()
+            w = Gdk.get_default_root_window()
+            pb = Gdk.pixbuf_get_from_window(w, x, y, 1, 1)
+            r, g, b = pb.get_pixels()
 
-        if (r > 127) and (g > 127) and (b > 127):
-            self.label.config(fg="#000000")
-        else:
-            self.label.config(fg="#FFFFFF")
+            if (r > 127) and (g > 127) and (b > 127):
+                self.label.config(fg="#000000")
+            else:
+                self.label.config(fg="#FFFFFF")
 
-        # RGB to HEX
-        return "#{:02x}{:02x}{:02x}".format(r, g, b)
+            # RGB to HEX
+            return "#{:02x}{:02x}{:02x}".format(r, g, b)
+    elif os_name == "nt":
+        def pixel_at(self, x,y):
+            r = windll.gdi32.GetPixel(dc,x,y) # this function returns -1 when mouse is out of window
+            if r == -1:
+                return "#ffffff"
+            
+            r, g, b = int.to_bytes(r, 3, "little")
+            if (r > 127) and (g > 127) and (b > 127):
+                self.label.config(fg="#000000")
+            else:
+                self.label.config(fg="#FFFFFF")
 
+            return "#{:02x}{:02x}{:02x}".format(r, g, b)
+
+            
     def copy(self):
         self.clipboard_clear()
         self.clipboard_append(self.color)
@@ -106,4 +128,5 @@ class Tool(tk.Tk):
         )
 
     def quit(self):
-        self.destroy()
+        self.after(0, self.destroy) # fix the main thread problem
+
