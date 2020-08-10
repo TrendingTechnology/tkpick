@@ -2,6 +2,7 @@ try:
     from .workbench import Tool
 except ImportError:
     from workbench import Tool
+    
 from threading import Thread
 
 
@@ -16,6 +17,7 @@ def main():
         bench.destroy()
 
     return 0
+
 
 if __name__ == "__main__":
     main()
