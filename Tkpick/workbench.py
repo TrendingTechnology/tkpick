@@ -1,25 +1,24 @@
-from os import path, name as os_name
 import tkinter as tk
 from threading import Thread
 from pynput import mouse, keyboard
+from os import path, name as os_name
+
+
+__version__ = "1.7"
+__author__ = "adlgrbz"
+__contact__ = "adlgrbz@tutamail.com"
+__source__ = "https://github.com/adlgrbz/Tkpick"
+
 
 if os_name == "posix":
     import gi
-
     gi.require_version("Gdk", "3.0")
     from gi.repository import Gdk
 elif os_name == "nt":
     from ctypes import windll
     dc= windll.user32.GetDC(0)
-
 else:
     raise OSError("Unsported OS: {}".format(os_name))
-
-
-__version__ = "1.7"
-__author__ = "Adil Gürbüz"
-__contact__ = "adlgrbz@tutamail.com"
-__source__ = "https://github.com/adlgrbz/Tkpick"
 
 this_dir, this_filename = path.split(__file__)
 
@@ -129,4 +128,4 @@ class Tool(tk.Tk):
 
     def quit(self):
         self.after(0, self.destroy) # fix the main thread problem
-
+        
