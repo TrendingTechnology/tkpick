@@ -1,25 +1,20 @@
-# Tkpick
-![](https://img.shields.io/pypi/v/Tkpick?color=orange&logo=python&logoColor=white&style=flat-square)
-![](https://img.shields.io/pypi/dm/Tkpick?style=flat-square)
-![](https://img.shields.io/pypi/pyversions/Tkpick?logo=python&logoColor=white&style=flat-square)
-![](https://img.shields.io/github/license/adlgrbz/Tkpick?color=green&style=flat-square)
-![](https://img.shields.io/static/v1?label=style&message=black&color=black&style=flat-square)
+# tkpick
+<a href="https://pypi.org/project/tkpick"><img src="https://img.shields.io/pypi/v/tkpick?style=flat"></a> <img src="https://img.shields.io/pypi/pyversions/tkpick?style=flat"> <img src="https://img.shields.io/pypi/l/tkpick"> <img src="https://img.shields.io/badge/style-black-black?style=flat">
 
-Get the colors of the pixels on the screen with the cursor
+Get pixel color using the cursor
 
-### Demo
 ![](demo.gif)
 
 ## Installing
 ### pip (No auto-update)
 Install via `pip`:
 ```
-pip install Tkpick
+[sudo] pip install tkpick
 ```
 
 ## Usage
 ```sh
-Tkpick
+$ tkpick or Tkpick
 ```
 
 or `Application Menu` > `Graphics` > `Tkpick`
@@ -28,9 +23,9 @@ or `Application Menu` > `Graphics` > `Tkpick`
 
 Shortcut | Function
 --- | ---
-`Shift-c` | Copy to clipboard
-`Shift-a` | About
-`Shift-q` | Close
+`Shift-c` | Copy color to clipboard
+`Shift-a` | Open the about window
+`Shift-q` | Close tool
 
 ## License
 This project is licensed under the GPL-3.0 - see the [LICENSE](LICENSE) file for details
