@@ -17,7 +17,7 @@ setup(
     name="tkpick",
     version=a.__version__,
     packages=["tkpick"],
-    description=a.description,
+    description=a.__description__,
     long_description=long_description,
     long_description_content_type="text/markdown",
     url=a.__source__,
@@ -47,7 +47,6 @@ setup(
         ("share/icons", ["tkpick/assets/tkpick.png"]),
     ],
     entry_points={
-        "gui_scripts": ["tkpick = tkpick:main"],
-        "gui_scripts": ["Tkpick = tkpick:main"],
+        "gui_scripts": ["tkpick = tkpick:main", "Tkpick = tkpick:main"],
     },
 )

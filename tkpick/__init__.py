@@ -19,12 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 
-try:
-    from .workbench import Tool
-except ImportError:
-    from workbench import Tool
-
-
+from .workbench import Tool
 from threading import Thread
 
 

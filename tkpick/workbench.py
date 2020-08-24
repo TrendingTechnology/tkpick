@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import tkinter as tk
-from about import About
+from .about import About
 from threading import Thread
 from pynput import mouse, keyboard
 from os import path, name as os_name

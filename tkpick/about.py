@@ -22,7 +22,7 @@ class About(tk.Toplevel):
 
         tk.Label(
             self,
-            text=f"\nTkpick {__version__}\n{__description__}",
+            text=f"\ntkpick {__version__}\n{__description__}",
             compound=tk.TOP,
             image=icon,
         ).pack(padx=5, pady=5)
