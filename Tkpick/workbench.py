@@ -1,13 +1,8 @@
 import tkinter as tk
+from about import About
 from threading import Thread
 from pynput import mouse, keyboard
 from os import path, name as os_name
-
-
-__version__ = "1.7"
-__author__ = "adlgrbz"
-__contact__ = "adlgrbz@tutamail.com"
-__source__ = "https://github.com/adlgrbz/Tkpick"
 
 
 if os_name == "posix":
@@ -16,7 +11,7 @@ if os_name == "posix":
     from gi.repository import Gdk
 elif os_name == "nt":
     from ctypes import windll
-    dc= windll.user32.GetDC(0)
+    dc = windll.user32.GetDC(0)
 else:
     raise OSError("Unsported OS: {}".format(os_name))
 
@@ -26,12 +21,18 @@ this_dir, this_filename = path.split(__file__)
 class Tool(tk.Tk):
     def __init__(self):
         super().__init__()
+        self._init_window()
+
+    def _init_window(self) -> None:
         self.overrideredirect(True)
+        
         self.icon = tk.PhotoImage(
             file=f"{this_dir}/assets/tkpick.gif"
         ).subsample(4, 4)
 
+        # window width / window height
         self.ww, self.wh = 60, 20
+        # window x / window y 
         self.wx, self.wy = 10, 20
 
         self.sw = self.winfo_screenwidth()
@@ -52,6 +53,37 @@ class Tool(tk.Tk):
         self.color = self.pixel_at(x, y)
         self.label.config(text=self.color, bg=self.color)
 
+    def _set_label_fg_color(self, r, g, b) -> None:
+        if max(r, g, b) > 127:
+            self.label.config(fg="#000000")
+        else:
+            self.label.config(fg="#FFFFFF")
+
+    if os_name == "posix":
+        def pixel_at(self, x, y):
+            # https://stackoverflow.com/a/27406714/12418109
+            w = Gdk.get_default_root_window()
+            pb = Gdk.pixbuf_get_from_window(w, x, y, 1, 1)
+            
+            r, g, b = pb.get_pixels()
+            self._set_label_fg_color(r, g, b)
+
+            # RGB to HEX
+            return "#{:02x}{:02x}{:02x}".format(r, g, b)
+        
+    elif os_name == "nt":
+        def pixel_at(self, x,y):
+            # this function returns -1 when mouse is out of window
+            gp = windll.gdi32.GetPixel(dc, x, y)
+            
+            if gp == -1:
+                return "#ffffff"
+            
+            r, g, b = int.to_bytes(gp, 3, "little")
+            self._set_label_fg_color(r, g, b)
+
+            return "#{:02x}{:02x}{:02x}".format(r, g, b)
+
     def listener_mouse(self):
         with mouse.Listener(on_move=self.on_move) as l:
             l.join()
@@ -69,63 +101,12 @@ class Tool(tk.Tk):
         ) as h:
             h.join()
 
-    if os_name == "posix":
-        def pixel_at(self, x, y):
-            # Source:
-            # https://stackoverflow.com/a/27406714/12418109
-
-            w = Gdk.get_default_root_window()
-            pb = Gdk.pixbuf_get_from_window(w, x, y, 1, 1)
-            r, g, b = pb.get_pixels()
-
-            if (r > 127) and (g > 127) and (b > 127):
-                self.label.config(fg="#000000")
-            else:
-                self.label.config(fg="#FFFFFF")
-
-            # RGB to HEX
-            return "#{:02x}{:02x}{:02x}".format(r, g, b)
-    elif os_name == "nt":
-        def pixel_at(self, x,y):
-            r = windll.gdi32.GetPixel(dc,x,y) # this function returns -1 when mouse is out of window
-            if r == -1:
-                return "#ffffff"
-            
-            r, g, b = int.to_bytes(r, 3, "little")
-            if (r > 127) and (g > 127) and (b > 127):
-                self.label.config(fg="#000000")
-            else:
-                self.label.config(fg="#FFFFFF")
-
-            return "#{:02x}{:02x}{:02x}".format(r, g, b)
-
-            
     def copy(self):
         self.clipboard_clear()
         self.clipboard_append(self.color)
 
     def about(self):
-        a = tk.Toplevel()
-
-        a.title("About")
-        a.resizable(0, 0)
-        a.wm_iconphoto(a._w, self.icon)
-
-        tk.Label(
-            a, text=f"Tkpick {__version__}", compound=tk.LEFT, image=self.icon
-        ).pack(padx=5, pady=5)
-
-        content = (
-            f"Author: {__author__}\n"
-            f"Contact: {__contact__}\n\n"
-            f"Source: {__source__}"
-        )
-        tk.Label(a, text=content, padx=5, pady=5, relief=tk.RIDGE).pack()
-
-        tk.Button(a, text="Close", command=lambda: a.destroy()).pack(
-            padx=5, pady=5, side=tk.RIGHT
-        )
+        About()._init_window(self.icon)
 
     def quit(self):
         self.after(0, self.destroy) # fix the main thread problem
-        
