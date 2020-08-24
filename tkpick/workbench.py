@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import tkinter as tk
 from about import About
 from threading import Thread
@@ -7,10 +9,12 @@ from os import path, name as os_name
 
 if os_name == "posix":
     import gi
+
     gi.require_version("Gdk", "3.0")
     from gi.repository import Gdk
 elif os_name == "nt":
     from ctypes import windll
+
     dc = windll.user32.GetDC(0)
 else:
     raise OSError("Unsported OS: {}".format(os_name))
@@ -25,14 +29,14 @@ class Tool(tk.Tk):
 
     def _init_window(self) -> None:
         self.overrideredirect(True)
-        
+
         self.icon = tk.PhotoImage(
             file=f"{this_dir}/assets/tkpick.gif"
-        ).subsample(4, 4)
+        ).subsample(5, 5)
 
         # window width / window height
         self.ww, self.wh = 60, 20
-        # window x / window y 
+        # window x / window y
         self.wx, self.wy = 10, 20
 
         self.sw = self.winfo_screenwidth()
@@ -60,25 +64,27 @@ class Tool(tk.Tk):
             self.label.config(fg="#FFFFFF")
 
     if os_name == "posix":
+
         def pixel_at(self, x, y):
             # https://stackoverflow.com/a/27406714/12418109
             w = Gdk.get_default_root_window()
             pb = Gdk.pixbuf_get_from_window(w, x, y, 1, 1)
-            
+
             r, g, b = pb.get_pixels()
             self._set_label_fg_color(r, g, b)
 
             # RGB to HEX
             return "#{:02x}{:02x}{:02x}".format(r, g, b)
-        
+
     elif os_name == "nt":
-        def pixel_at(self, x,y):
+
+        def pixel_at(self, x, y):
             # this function returns -1 when mouse is out of window
             gp = windll.gdi32.GetPixel(dc, x, y)
-            
+
             if gp == -1:
                 return "#ffffff"
-            
+
             r, g, b = int.to_bytes(gp, 3, "little")
             self._set_label_fg_color(r, g, b)
 
@@ -109,4 +115,4 @@ class Tool(tk.Tk):
         About()._init_window(self.icon)
 
     def quit(self):
-        self.after(0, self.destroy) # fix the main thread problem
+        self.after(0, self.destroy)  # fix the main thread problem

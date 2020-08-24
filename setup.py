@@ -1,8 +1,7 @@
 import sys
 from os import path
 from setuptools import setup
-
-from Tkpick import workbench
+from tkpick import about as a
 
 
 setupdir = path.dirname(__file__)
@@ -15,32 +14,40 @@ with open(path.join(setupdir, "README.md"), encoding="ASCII") as f:
 
 
 setup(
-    name="Tkpick",
-    version=workbench.__version__,
-    packages=["Tkpick"],
-    description="Get color of pixels with cursor",
+    name="tkpick",
+    version=a.__version__,
+    packages=["tkpick"],
+    description=a.description,
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url=workbench.__source__,
-    author=workbench.__author__,
-    author_email=workbench.__contact__,
+    url=a.__source__,
+    author=a.__author__,
+    author_email=a.__contact__,
     license="GPL-3.0",
     classifiers=[
+        "Environment :: X11 Applications",
+        "Environment :: X11 Applications :: GTK",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Natural Language :: English",
+        "Topic :: Utilities",
+        "Topic :: Multimedia :: Graphics",
     ],
-    platforms=["Linux"],
+    platforms=["Linux", "Windows"],
     python_requires=">=3.5",
     install_requires=["pynput", "PyGObject"],
     keywords=["tkinter", "pick", "cursor", "pixel", "color"],
-    package_data={"Tkpick": ["assets/*.*"]},
+    package_data={"tkpick": ["assets/*.*"]},
     data_files=[
         ("share/applications", ["tkpick.desktop"]),
-        ("share/icons", ["Tkpick/assets/tkpick.png"]),
+        ("share/icons", ["tkpick/assets/tkpick.png"]),
     ],
-    entry_points={"gui_scripts": ["tkpick = Tkpick:main"]},
+    entry_points={
+        "gui_scripts": ["tkpick = tkpick:main"],
+        "gui_scripts": ["Tkpick = tkpick:main"],
+    },
 )

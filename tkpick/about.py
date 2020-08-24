@@ -1,10 +1,14 @@
+# -*- coding: utf-8 -*-
+
 import tkinter as tk
 
 
-__version__ = "1.8.0"
+__version__ = "1.8.5"
 __author__ = "adlgrbz"
 __contact__ = "adlgrbz@tutamail.com"
-__source__ = "https://github.com/adlgrbz/Tkpick"
+__source__ = "https://github.com/adlgrbz/tkpick"
+
+__description__ = "Get pixel color using the cursor"
 
 
 class About(tk.Toplevel):
@@ -17,12 +21,16 @@ class About(tk.Toplevel):
         self.wm_iconphoto(self._w, icon)
 
         tk.Label(
-            self, text=f"Tkpick {__version__}", compound=tk.LEFT, image=icon
+            self,
+            text=f"\nTkpick {__version__}\n{__description__}",
+            compound=tk.TOP,
+            image=icon,
         ).pack(padx=5, pady=5)
 
         content = (
             f"Author: {__author__}\n"
             f"Contact: {__contact__}\n\n"
+            f"License: GPL-3.0\n"
             f"Source: {__source__}"
         )
         tk.Label(self, text=content, padx=5, pady=5, relief=tk.RIDGE).pack()
