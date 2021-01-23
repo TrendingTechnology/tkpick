@@ -3,11 +3,10 @@
 import tkinter as tk
 
 
-__version__ = "1.8.5"
-__author__ = "adlgrbz"
-__contact__ = "adlgrbz@tutamail.com"
-__source__ = "https://github.com/adlgrbz/tkpick"
-
+__version__ = "1.0.0"
+__author__ = "Adil Gurbuz"
+__contact__ = "beucismis@tutamail.com"
+__source__ = "https://github.com/beucismis/tkpick"
 __description__ = "Get pixel color using the cursor"
 
 

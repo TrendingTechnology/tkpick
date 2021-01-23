@@ -2,7 +2,7 @@
 #!/usr/bin/python3
 
 """
-Copyright (C) 2020- adlgrbz
+Copyright (C) 2020- beucismis
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

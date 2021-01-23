@@ -12,12 +12,8 @@ if os_name == "posix":
 
     gi.require_version("Gdk", "3.0")
     from gi.repository import Gdk
-elif os_name == "nt":
-    from ctypes import windll
-
-    dc = windll.user32.GetDC(0)
 else:
-    raise OSError("Unsported OS: {}".format(os_name))
+    raise OSError(f"Unsported OS: {os_name}")
 
 this_dir, this_filename = path.split(__file__)
 
@@ -63,32 +59,16 @@ class Tool(tk.Tk):
         else:
             self.label.config(fg="#FFFFFF")
 
-    if os_name == "posix":
+    def pixel_at(self, x, y):
+        # https://stackoverflow.com/a/27406714/12418109
+        w = Gdk.get_default_root_window()
+        pb = Gdk.pixbuf_get_from_window(w, x, y, 1, 1)
 
-        def pixel_at(self, x, y):
-            # https://stackoverflow.com/a/27406714/12418109
-            w = Gdk.get_default_root_window()
-            pb = Gdk.pixbuf_get_from_window(w, x, y, 1, 1)
+        r, g, b = pb.get_pixels()
+        self._set_label_fg_color(r, g, b)
 
-            r, g, b = pb.get_pixels()
-            self._set_label_fg_color(r, g, b)
-
-            # RGB to HEX
-            return "#{:02x}{:02x}{:02x}".format(r, g, b)
-
-    elif os_name == "nt":
-
-        def pixel_at(self, x, y):
-            # this function returns -1 when mouse is out of window
-            gp = windll.gdi32.GetPixel(dc, x, y)
-
-            if gp == -1:
-                return "#ffffff"
-
-            r, g, b = int.to_bytes(gp, 3, "little")
-            self._set_label_fg_color(r, g, b)
-
-            return "#{:02x}{:02x}{:02x}".format(r, g, b)
+        # RGB to HEX
+        return "#{:02x}{:02x}{:02x}".format(r, g, b)
 
     def listener_mouse(self):
         with mouse.Listener(on_move=self.on_move) as l:
