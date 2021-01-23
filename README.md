@@ -5,6 +5,9 @@ Get pixel color using the cursor
 
 ![](demo.gif)
 
+### Availability
+Only GNU/Linux
+
 ## Installing
 ### pip (No auto-update)
 Install via `pip`:
