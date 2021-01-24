@@ -3,7 +3,7 @@
 
 Get pixel color using the cursor
 
-![](demo.gif)
+![https://raw.githubusercontent.com/beucismis/tkpick/master/demo.gif](demo.gif)
 
 ### Availability
 Only GNU/Linux
@@ -20,15 +20,17 @@ Install via `pip`:
 $ tkpick or Tkpick
 ```
 
-or `Application Menu` > `Graphics` > `Tkpick`
+or <kbd>Application Menu</kbd> > <kbd>Graphics</kbd> > <kbd>Tkpick</kbd>
 
 ## Shortcuts
 
+Plugins</kbd>
+
 Shortcut | Function
 --- | ---
-`Shift-c` | Copy color to clipboard
-`Shift-a` | Open the about window
-`Shift-q` | Close tool
+<kbd>Shift-c</kbd> | Copy color to clipboard
+<kbd>Shift-a</kbd> | Open the about window
+<kbd>Shift-q</kbd> | Close tool
 
 ## License
 This project is licensed under the GPL-3.0 - see the [LICENSE](LICENSE) file for details
