@@ -1,7 +1,7 @@
 # tkpick
 <a href="https://pypi.org/project/tkpick"><img src="https://img.shields.io/pypi/v/tkpick?style=flat"></a> <img src="https://img.shields.io/pypi/pyversions/tkpick?style=flat"> <img src="https://img.shields.io/pypi/l/tkpick"> <img src="https://img.shields.io/badge/style-black-black?style=flat">
 
-Get pixel color using the cursor
+ A lighweigt screen color picker tool
 
 ![https://raw.githubusercontent.com/beucismis/tkpick/master/demo.gif](demo.gif)
 
